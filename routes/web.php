@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', [
+    'uses'=> 'BookController@index',
+    'as'=> 'book.index'
+]);
