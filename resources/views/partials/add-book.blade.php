@@ -23,10 +23,10 @@
                     {{ Form::token()}}
                         <div class="form-group">
                             <label  class="col-sm-12 control-label"
-                                    for="IsbnNumber">Podaj nr ISBN</label>
+                                    for="IsbnNumber">Podaj nr ISBN - 13 cyfr</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control"
-                                       id="IsbnNumber" placeholder="wpisz nr ISBN" name="isbn-number" required/>
+                                       id="IsbnNumber" placeholder="wpisz nr ISBN" name="isbn" required maxlength="13"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -34,37 +34,37 @@
                                     for="bookName">Podaj tytuł książki</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control"
-                                       id="bookName" placeholder="wpisz tytuł" required/>
+                                       id="bookName" placeholder="wpisz tytuł" name="book_name" required/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-12 control-label"
-                                   for="bookAuthor">Podaj autora książki</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control"
-                                       id="bookAuthor" placeholder="wpisz autora"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-12 control-label"
-                                   for="bookRelease">Podaj datę wydania</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control"
-                                       id="bookRelease" placeholder="data wydania"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-12 control-label"
-                                   for="bookPagesNumber">Podaj liczbę stron</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control"
-                                       id="bookPagesNumber" placeholder="liczba stron"  min="0"/>
-                            </div>
-                        </div>
-                        <div class="category-list">
-                            @foreach($category as $categoryItem)
+                                <div class="form-group">
+                                    <label class="col-sm-12 control-label"
+                                           for="bookAuthor">Podaj autora książki</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"
+                                               id="bookAuthor" name="book_author" placeholder="wpisz autora"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-12 control-label"
+                                           for="bookRelease">Podaj datę wydania</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control"
+                                               id="bookRelease" placeholder="data wydania" name="book_release"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-12 control-label"
+                                           for="bookPagesNumber">Podaj liczbę stron</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control"
+                                               id="bookPagesNumber" placeholder="liczba stron"  min="0" name="page_count"/>
+                                    </div>
+                                </div>
+                                <div class="category-list">
+                                    @foreach($category as $categoryItem)
                                 <div class="checkbox">
-                                    <label><input type="checkbox" value="{{$categoryItem->id}}">{{$categoryItem->category_name}}</label>
+                                    <label><input type="checkbox" name="category" value="{{$categoryItem->id}}">{{$categoryItem->category_name}}</label>
                                 </div>
                             @endforeach
                         </div>

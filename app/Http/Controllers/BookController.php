@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Category;
 
@@ -44,8 +45,29 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $test = $request->post('isbn-number');
-        dd($test);
+//dd($request->post('isbn'));
+//     $validatedData = $request->validate([
+//
+//    ]);
+        $validator = Validator::make($request->all(),[
+            'isbn' => 'numeric|required|unique:books|digits:13',
+            'book_name' => 'required|max: 255',
+            'book_author' => 'nullable',
+            'book_release' => 'nullable',
+            'page_count' => 'nullable|integer',
+            'category' => 'nullable'
+        ]);
+
+
+        if ($validator->fails()) {
+           $test = $validator->errors();
+//           dd($test->getMessages());
+            foreach ($test->get('isbn') as $message){
+                echo $message;
+           }
+        }
+
+
     }
 
     /**
