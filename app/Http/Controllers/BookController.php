@@ -19,13 +19,9 @@ class BookController extends Controller
         $categorys = $category->getCategorys();
         $category = [];
 
-        foreach ( $categorys as $item )
-        {
-            array_push( $category, $item);
+        foreach ( $categorys as $item ) {
+            array_push($category, $item);
         }
-
-
-
 
         return view('welcome', ['category' => $category]);
     }
@@ -48,7 +44,8 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $test = $request->post('isbn-number');
+        dd($test);
     }
 
     /**

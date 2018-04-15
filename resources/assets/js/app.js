@@ -7,4 +7,4 @@
 
 require('./bootstrap');
 
-require ('./components/bookCategory');
+require ('./components/index');

@@ -35903,27 +35903,13 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports) {
 
 
-var url = 'https://wolnelektury.pl/api/genres/';
-console.log('test');
 
-// $.ajax( url, function( data ) {
-//     var items = [];
-//     $.each( data, function( key, val ) {
-//         items.push(  key + ' ' + val );
-//         var test = $.parseJSON(data);
-//         console.log(test);
-//     });
-//
-// });
+var formAddBook = $('.form-horizontal'),
+    submitAddBook = $('.js-add-book-btn');
+console.log('fire');
 
-$.ajax({
-    url: url,
-    method: 'get',
-    cache: false,
-    done: function done(response) {
-        console.log(response);
-    }
-
+submitAddBook.on('click', function () {
+    formAddBook.submit();
 });
 
 /***/ }),
