@@ -23,9 +23,12 @@
     <body>
 
     <div class="container">
-        <h1 class="text-center">
-            Biblioteka
-        </h1>
+        <div class="row">
+            <h1 class="text-center col-md-12">
+                Biblioteka
+            </h1>
+        </div>
+
         <div class="col-md-12">
             <div class="search-form">
                 <form  method="get">
