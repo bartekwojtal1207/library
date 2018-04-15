@@ -10438,3 +10438,8 @@ a.text-dark:focus {
   font-size: 40px;
 }
 
+.category-list {
+  height: 100px;
+  overflow: scroll;
+}
+

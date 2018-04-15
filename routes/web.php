@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/test', [
+Route::get('/',[
     'uses'=> 'BookController@index',
     'as'=> 'book.index'
+]);
+
+Route::get('/test', [
+    'uses'=> 'CategoryController@index',
+    'as'=> 'category.index'
 ]);

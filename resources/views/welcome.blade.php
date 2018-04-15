@@ -90,6 +90,14 @@
                                                id="bookPagesNumber" placeholder="liczba stron"  min="0"/>
                                     </div>
                                 </div>
+                                <div class="category-list">
+                                    @foreach($category as $categoryItem)
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="{{$categoryItem->id}}">{{$categoryItem->category_name}}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+
                             </form>
                         </div>
                         <!-- Modal Footer -->

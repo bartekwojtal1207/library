@@ -35,3 +35,7 @@
   &:hover { cursor: pointer; }
   }
 .container .no_result_title { font-size: 40px; }
+.category-list {
+  height: 100px;
+  overflow: scroll;
+}
