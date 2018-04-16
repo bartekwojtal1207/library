@@ -13,13 +13,13 @@ class CreateBooksCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('books_category', function (Blueprint $table) {
-            $table->increments('id')->unique();
-            $table->unsignedInteger('books_id');
-            $table->foreign('books_id')->references('id')->on('books');
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('category');
-        });
+//        Schema::create('books_category', function (Blueprint $table) {
+//            $table->increments('id')->unique();
+//            $table->unsignedInteger('books_id');
+//            $table->foreign('books_id')->references('id')->on('books');
+//            $table->unsignedInteger('category_id');
+//            $table->foreign('category_id')->references('id')->on('category');
+//        });
     }
 
     /**

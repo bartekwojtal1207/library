@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Category;
@@ -17,6 +18,7 @@ class BookController extends Controller
     public function index()
     {
         $category = new Category();
+        $category->store();
         $categorys = $category->getCategorys();
         $category = [];
 
@@ -45,26 +47,32 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-//dd($request->post('isbn'));
-//     $validatedData = $request->validate([
-//
-//    ]);
+
         $validator = Validator::make($request->all(),[
             'isbn' => 'numeric|required|unique:books|digits:13',
             'book_name' => 'required|max: 255',
-            'book_author' => 'nullable',
-            'book_release' => 'nullable',
-            'page_count' => 'nullable|integer',
-            'category' => 'nullable'
+            'page_count' => 'nullable|integer'
         ]);
-
 
         if ($validator->fails()) {
            $test = $validator->errors();
-//           dd($test->getMessages());
+
             foreach ($test->get('isbn') as $message){
                 echo $message;
            }
+        }else {
+
+            $isbnNumber = $request->post('isbn');
+            $bookName = $request->post('book_name');
+            $bookAuthor = $request->post('book_author');
+            $bookRelease = $request->post('book_release');
+            $pageCount = $request->post('page_count');
+            $categoryId = $request->post('category');
+
+            $book = new Book();
+            $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryId);
+
+
         }
 
 

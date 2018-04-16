@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Fluent;
 
 class CreateCategoryTable extends Migration
 {
@@ -16,6 +17,9 @@ class CreateCategoryTable extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('category_name');
+        });
+        Schema::table('books', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('category');
         });
     }
 
