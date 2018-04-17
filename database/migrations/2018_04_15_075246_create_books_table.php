@@ -19,11 +19,11 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->bigInteger('ISBN')->unique();
-            $table->string('book_name');
-            $table->string('author');
-            $table->integer('number_pages');
-            $table->date('release_date');
-            $table->unsignedInteger('category_id');
+            $table->string('book_name')->nullable();
+            $table->string('author')->nullable();
+            $table->integer('number_pages')->nullable();
+            $table->date('release_date')->nullable();
+            $table->unsignedInteger('category_id')->nullable();
         });
 
 

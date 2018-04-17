@@ -18,12 +18,13 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    {{ Form::open(array('route' => 'book.store', 'class'=> "form-horizontal")) }}
-                        {{ Form::token()}}
+                    {{ Form::open(array( 'class' => "form-horizontal", 'method' => 'post', 'onsubmit' => 'myFunction(this); return false;' ))  }}
+                    {{--<form  method="post" class="form-horizontal">--}}
+                    {{ Form::token()}}
                         <div class="form-group">
                             {{ Form::label('IsbnNumber', 'Podaj nr ISBN - 13 cyfr', array('class' => 'col-sm-12 control-label')) }}
                             <div class="col-sm-10">
-                                {{ Form::number('isbn',null, array('class' => 'form-control', 'id' => 'IsbnNumber', 'placeholder' => 'wpisz nr ISBN', 'required' => true, 'maxLength' => '13')) }}
+                                {{ Form::number('isbn',null, array('class' => 'form-control', 'id' => 'isbnNumber', 'placeholder' => 'wpisz nr ISBN', 'required' => true, 'maxLength' => '13')) }}
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,12 +62,15 @@
                             @endforeach
                         </div>
 
-                    {{ Form::close() }}
+
+
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     {{ Form::button('Close', array('class' => 'btn btn-default', 'data-dismiss' => 'modal')) }}
                     {{ Form::button('Save', array('class' => 'btn btn-primary js-add-book-btn')) }}
+                    {{--</form>--}}
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

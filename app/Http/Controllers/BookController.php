@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Category;
+//use Illuminate\Http\Response;
+
+
 
 class BookController extends Controller
 {
@@ -25,8 +28,10 @@ class BookController extends Controller
         foreach ( $categorys as $item ) {
             array_push($category, $item);
         }
+        $books = new Book();
+        $books = $books->getAllbooks();
 
-        return view('welcome', ['category' => $category]);
+        return view('welcome', ['category' => $category, 'books' => $books]);
     }
 
     /**
@@ -48,35 +53,38 @@ class BookController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(),[
-            'isbn' => 'numeric|required|unique:books|digits:13',
-            'book_name' => 'required|max: 255',
-            'page_count' => 'nullable|integer'
-        ]);
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'isbn' => 'numeric|required|unique:books',
+                'book_name' => 'required|max: 255',
+                'page_count' => 'nullable|integer'
+            ]);
 
-        if ($validator->fails()) {
-           $test = $validator->errors();
+            if ($validator->fails()) {
+                $test = $validator->errors();
 
-            foreach ($test->get('isbn') as $message){
-                echo $message;
-           }
-        }else {
-
-            $isbnNumber = $request->post('isbn');
-            $bookName = $request->post('book_name');
-            $bookAuthor = $request->post('book_author');
-            $bookRelease = $request->post('book_release');
-            $pageCount = $request->post('page_count');
-            $categoryId = $request->post('category');
-
-            $book = new Book();
-            $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryId);
-
-
+                foreach ($test->get('isbn') as $message) {
+                    return response()->json($message);
+                }
+            } else {
+                $isbnNumber = $request->post('isbn');
+                $bookName = $request->post('book_name');
+                $bookAuthor = $request->post('book_author');
+                $bookRelease = $request->post('book_release');
+                $pageCount = $request->post('page_count');
+                $categoryId = $request->post('category');
+                try {
+                    $book = new Book();
+                    $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryId);
+//                    dd(response()->getStatusCode());
+                    return response()->json('Sukces', 200);
+                } catch (\Exception $exception) {
+                    return response()->json($exception);
+                }
+            }
         }
-
-
     }
+
 
     /**
      * Display the specified resource.

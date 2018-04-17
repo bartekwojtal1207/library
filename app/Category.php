@@ -13,6 +13,15 @@ class Category extends Model
 {
     protected $table = 'category';
 
+        public function getCategoryName($bookId)
+        {
+            $categoryName =  DB::table($this->table)
+                ->select('category_name')
+                ->where('id', $bookId)
+                ->get();
+            return $categoryName;
+        }
+
         public function store()
         {
 

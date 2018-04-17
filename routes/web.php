@@ -20,7 +20,10 @@ Route::get('/test', [
     'uses'=> 'CategoryController@index',
     'as'=> 'category.index'
 ]);
+//Route::post('/store', function (){
+//
+//});
 Route::post('/store', [
-    'uses' => 'BookController@store',
-    'as' => 'book.store'
+    'uses'=> 'BookController@store',
+    'as'=> 'book.store'
 ]);
