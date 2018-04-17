@@ -41,16 +41,22 @@
                     <th scope="col">Number pages</th>
                     <th scope="col">Release date</th>
                     <th scope="col">Category</th>
+                    <th scope="col">Options</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach( $books as $book)
                 <tr>
-                    <th scope="row">{{ $book->ISBN }}</th>
+                    <th scope="row" data-id="{{ $book->id }}">{{ $book->ISBN }}</th>
                     <td>{{ $book->book_name }}</td>
                     <td>{{ $book->author }}</td>
                     <td>{{ $book->number_pages }}</td>
                     <td>{{ $book->release_date }}</td>
+                    <td>{{ $book->category_name }}</td>
+                    <td>
+                        <a role="button" class="btn btn-primary">Edit</a>
+                        <a role="button" class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
                 @endforeach
                 </tbody>

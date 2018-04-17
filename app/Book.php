@@ -10,7 +10,10 @@ class Book extends Model
     public function getAllbooks()
     {
         try {
-            $books = DB::table('books')->get();
+            $books = DB::table('books')
+                ->leftJoin('category', 'books.category_id', '=','category.id')
+                ->get();
+
             return $books;
 
         } catch (\Exception $exception) {

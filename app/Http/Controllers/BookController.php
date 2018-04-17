@@ -76,7 +76,6 @@ class BookController extends Controller
                 try {
                     $book = new Book();
                     $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryId);
-//                    dd(response()->getStatusCode());
                     return response()->json('Sukces', 200);
                 } catch (\Exception $exception) {
                     return response()->json($exception);
