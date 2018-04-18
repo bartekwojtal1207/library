@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-striped table-responsive">
+                <table class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th scope="col">ISBN</th>
@@ -46,17 +46,16 @@
                     </thead>
                     <tbody>
                     @foreach( $books as $book)
-
                     <tr class="text-center" data-id={{ $book->id }}>
-                        <th scope="row">{{ $book->ISBN }}</th>
-                        <td>{{ $book->book_name }}</td>
-                        <td>{{ $book->author }}</td>
-                        <td>{{ $book->number_pages }}</td>
-                        <td>{{ $book->release_date }}</td>
-                        <td>{{ $book->category_name }}</td>
+                        <td class="isbn">{{ $book->ISBN  }}</td>
+                        <td class="name">{{ $book->book_name }}</td>
+                        <td class="author">{{ $book->author }}</td>
+                        <td class="number">{{ $book->number_pages }}</td>
+                        <td class="release">{{ $book->release_date }}</td>
+                        <td class="category">{{ $book->category_name }}</td>
                         <td>
-                            <a role="button" class="btn btn-primary">Edit</a>
-                            <button role="button"  class="btn btn-danger" href="{{ route('book.delete') }}">Delete</button>
+                            <button role="button" class="btn btn-primary btn-edit-book">Edit</button>
+                            <button role="button"  class="btn btn-danger btn-delete-book" href="{{ route('book.delete') }}">Delete</button>
                         </td>
                     </tr>
                     @endforeach
@@ -67,7 +66,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModalHorizontal">
+            <button class="btn btn-primary add-book-btn" data-toggle="modal" data-target="#myModalHorizontal">
                 Add
             </button>
         </div>
@@ -76,48 +75,85 @@
 
 </div>
 <script type="text/javascript">
-     const route = '{{ route('book.store') }}',
-           form = $('form.form-horizontal');
 
      $.ajaxSetup({
          headers: {
              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
          }
      });
+
      function myFunction(){
-         console.log('elo');
          return false;
      }
 
-         form.submit(function(e){
-             const isbnNumber = $('#isbnNumber').val(),
-                   bookName = $('#bookName').val();
-             console.log(isbnNumber);
+     const form = $('form.form-horizontal');
+
+     form.submit(function(e){
+
+         const routeAddBook = '{{ route('book.store') }}',
+               isbnNumber = $('#isbnNumber').val(),
+               bookName = $('#bookName').val(),
+               author = $('#bookAuthor').val(),
+               pageCount = $("#bookPagesNumber").val(),
+               bookRelease = $('#bookRelease').val(),
+               category = $('input[type="radio"]:checked').val(),
+               btnEdit = $('.btn-edit-book').first().clone(),
+               deleteBtn = $('.btn-delete-book').first().clone();
 
              $.post(
-                 route,
-                 { isbn: isbnNumber, book_name: bookName },
+                 routeAddBook,
+                 { isbn: isbnNumber, book_name: bookName, book_author: author, book_release: bookRelease, page_count: pageCount, category: category },
                  function (msg) {
-                         $('.modal').attr('aria-hidden', false).css('display', 'none');
-                         $('.modal-backdrop').css('display', 'none');
-                         alert(msg);
+                    if ( msg === 'success') {
+                        alert(msg)
+                        $('.modal').attr('aria-hidden', false).css('display', 'none');
+                        $('.modal-backdrop').css('display', 'none');
+
+                        var newtR = $('<tr class="text-center new"> ' +
+                            '<td>'+isbnNumber+'</td>' +
+                            '<td>'+bookName+'</td>' +
+                            '<td>'+author+'</td>' +
+                            '<td>'+pageCount+'</td>' +
+                            '<td>'+bookRelease+'</td>' +
+                            '<td>'+category+'</td>' +
+                            '</tr>');
+
+                        $('.table tbody tr:last').after(newtR);
+                        $('.text-center.new td:last').after(deleteBtn).after(btnEdit);
+                        deleteBook();
+                    }else {
+                        alert (msg);
+                    }
+
                 }
              )
 
         });
-        $('.btn-danger').on('click', function(){
-            var $this = $(this);
-            const routeDelete = '{{ route('book.delete') }}',
-                  bookId = $this.parent().parent().data("id");
 
-            $.post(
-                routeDelete,
-                {bookId : bookId},
-                function(msg) {
-                    alert(msg);
+        function deleteBook() {
+            $('.btn-delete-book').on('click', function(){
+                var $this = $(this),
+                    r = confirm("Are you sure you want to delete the book ?");
+                const routeDelete = '{{ route('book.delete') }}',
+                    bookId = $this.parent().parent().data("id"),
+                    parentRow = $this.parent().parent();
+
+                if (r == true) {
+                    $.post(
+                        routeDelete,
+                        {bookId : bookId},
+                        function(msg) {
+                            alert(msg);
+                            parentRow.remove();
+                        }
+                    )
+                } else {
+                    txt = "You pressed Cancel!";
                 }
-            )
-        })
+
+            })
+        }
+     deleteBook();
 
 </script>
 @endsection

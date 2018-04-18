@@ -40,8 +40,16 @@
   overflow: scroll;
 }
 .table-responsive {
-  font-size: 13px;
   display: flex;
   justify-content: center;
-  margin-top: 25px
+  overflow: visible;
+  .table {
+    font-size: 13px;
+    margin-top: 25px;
+    width: 80%;
+  .btn { width: 60px; }
+  }
+
 }
+
+.add-book-btn { margin-left: 168px; }

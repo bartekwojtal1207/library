@@ -62,9 +62,17 @@ class BookController extends Controller
             ]);
 
             if ($validator->fails()) {
-                $test = $validator->errors();
+                $error = $validator->errors();
 
-                foreach ($test->get('isbn') as $message) {
+                foreach ($error->get('isbn') as $message) {
+                    return response()->json($message);
+                }
+
+                foreach ($error->get('book_name') as $message) {
+                    return response()->json($message);
+                }
+
+                foreach ($error->get('page_count') as $message) {
                     return response()->json($message);
                 }
             } else {
@@ -76,8 +84,8 @@ class BookController extends Controller
                 $categoryName = $request->post('category');
                 try {
                     $book = new Book();
-                    $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryName);
-                    return response()->json('Sukces', 200);
+                    $book = $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryName);
+                    return response()->json('success', 200);
                 } catch (\Exception $exception) {
                     return response()->json($exception);
                 }

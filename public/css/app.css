@@ -10444,6 +10444,26 @@ a.text-dark:focus {
 }
 
 .table-responsive {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: visible;
+}
+
+.table-responsive .table {
   font-size: 13px;
+  margin-top: 25px;
+  width: 80%;
+}
+
+.table-responsive .table .btn {
+  width: 60px;
+}
+
+.add-book-btn {
+  margin-left: 168px;
 }
 
