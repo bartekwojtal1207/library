@@ -11,7 +11,6 @@ class Book extends Model
     {
         try {
             $books = DB::table('books')
-                ->leftJoin('category', 'books.category_id', '=','category.id')
                 ->get();
 
             return $books;
@@ -22,7 +21,7 @@ class Book extends Model
     }
 
 
-    public function addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryId )
+    public function addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryName )
     {
         try {
             DB::table('books')->insert(
@@ -31,7 +30,7 @@ class Book extends Model
                     'author' => $bookAuthor,
                     'number_pages' => $pageCount,
                     'release_date' => $bookRelease,
-                    'category_id' => $categoryId ]
+                    'category_name' => $categoryName ]
             );
         }catch (\Exception $exception){
             echo $exception;

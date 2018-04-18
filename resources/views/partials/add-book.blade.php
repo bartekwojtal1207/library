@@ -55,7 +55,7 @@
                             @foreach($category as $categoryItem)
                                 <div class="checkbox">
                                     <label>
-                                        {{ Form::radio('category', $categoryItem->id) }}
+                                        {{ Form::radio('category', $categoryItem->category_name) }}
                                         {{$categoryItem->category_name}}
                                     </label>
                                 </div>

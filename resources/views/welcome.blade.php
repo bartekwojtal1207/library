@@ -11,7 +11,6 @@
         <div class="col-md-12">
             <div class="search-form">
                 <form method="get">
-
                     <div class="input-group">
                         <input type="text" placeholder="search" class="input_search ">
                         <button name="search" id="search">
@@ -32,35 +31,38 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped table-responsive">
-                <thead>
-                <tr>
-                    <th scope="col">ISBN</th>
-                    <th scope="col">Book name</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Number pages</th>
-                    <th scope="col">Release date</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Options</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach( $books as $book)
-                <tr>
-                    <th scope="row" data-id="{{ $book->id }}">{{ $book->ISBN }}</th>
-                    <td>{{ $book->book_name }}</td>
-                    <td>{{ $book->author }}</td>
-                    <td>{{ $book->number_pages }}</td>
-                    <td>{{ $book->release_date }}</td>
-                    <td>{{ $book->category_name }}</td>
-                    <td>
-                        <a role="button" class="btn btn-primary">Edit</a>
-                        <a role="button" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Book name</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Number pages</th>
+                        <th scope="col">Release date</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach( $books as $book)
+
+                    <tr class="text-center" data-id={{ $book->id }}>
+                        <th scope="row">{{ $book->ISBN }}</th>
+                        <td>{{ $book->book_name }}</td>
+                        <td>{{ $book->author }}</td>
+                        <td>{{ $book->number_pages }}</td>
+                        <td>{{ $book->release_date }}</td>
+                        <td>{{ $book->category_name }}</td>
+                        <td>
+                            <a role="button" class="btn btn-primary">Edit</a>
+                            <button role="button"  class="btn btn-danger" href="{{ route('book.delete') }}">Delete</button>
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -99,12 +101,23 @@
                          $('.modal').attr('aria-hidden', false).css('display', 'none');
                          $('.modal-backdrop').css('display', 'none');
                          alert(msg);
-
                 }
              )
 
         });
-     // }
+        $('.btn-danger').on('click', function(){
+            var $this = $(this);
+            const routeDelete = '{{ route('book.delete') }}',
+                  bookId = $this.parent().parent().data("id");
+
+            $.post(
+                routeDelete,
+                {bookId : bookId},
+                function(msg) {
+                    alert(msg);
+                }
+            )
+        })
 
 </script>
 @endsection

@@ -31,6 +31,7 @@ class BookController extends Controller
         $books = new Book();
         $books = $books->getAllbooks();
 
+
         return view('welcome', ['category' => $category, 'books' => $books]);
     }
 
@@ -72,10 +73,10 @@ class BookController extends Controller
                 $bookAuthor = $request->post('book_author');
                 $bookRelease = $request->post('book_release');
                 $pageCount = $request->post('page_count');
-                $categoryId = $request->post('category');
+                $categoryName = $request->post('category');
                 try {
                     $book = new Book();
-                    $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryId);
+                    $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryName);
                     return response()->json('Sukces', 200);
                 } catch (\Exception $exception) {
                     return response()->json($exception);
@@ -125,8 +126,19 @@ class BookController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy(Book $book, Request $request)
     {
-        //
+            if ($request->ajax()) {
+               $bookId = $request->post('bookId');
+
+               try{
+                   DB::table('books')->where('books.id', '=', $bookId)->delete();
+               }catch(\Exception $exception) {
+                   return response()->json($exception);
+               }
+
+                return response()->json('usunięto produkt', 200);
+            }
+
     }
 }

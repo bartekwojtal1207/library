@@ -10443,3 +10443,7 @@ a.text-dark:focus {
   overflow: scroll;
 }
 
+.table-responsive {
+  font-size: 13px;
+}
+

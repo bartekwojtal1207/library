@@ -23,7 +23,7 @@ class CreateBooksTable extends Migration
             $table->string('author')->nullable();
             $table->integer('number_pages')->nullable();
             $table->date('release_date')->nullable();
-            $table->unsignedInteger('category_id')->nullable();
+            $table->string('category_name')->nullable();
         });
 
 

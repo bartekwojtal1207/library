@@ -18,9 +18,6 @@ class CreateCategoryTable extends Migration
             $table->increments('id')->unique();
             $table->string('category_name');
         });
-        Schema::table('books', function (Blueprint $table) {
-            $table->foreign('category_id')->references('id')->on('category');
-        });
     }
 
     /**

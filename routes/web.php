@@ -27,3 +27,7 @@ Route::post('/store', [
     'uses'=> 'BookController@store',
     'as'=> 'book.store'
 ]);
+Route::post('/delete', [
+    'uses' => 'BookController@destroy',
+    'as' => 'book.delete'
+]);
