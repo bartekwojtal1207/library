@@ -147,9 +147,7 @@
                             parentRow.remove();
                         }
                     )
-                } else {
-                    txt = "You pressed Cancel!";
-                }
+                } else { txt = "You pressed Cancel!"; }
 
             })
         }

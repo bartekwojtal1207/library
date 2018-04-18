@@ -61,9 +61,6 @@
                                 </div>
                             @endforeach
                         </div>
-
-
-
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">

@@ -84,7 +84,7 @@ class BookController extends Controller
                 $categoryName = $request->post('category');
                 try {
                     $book = new Book();
-                    $book = $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryName);
+                    $book->addBook($isbnNumber, $bookName, $bookAuthor, $bookRelease, $pageCount, $categoryName);
                     return response()->json('success', 200);
                 } catch (\Exception $exception) {
                     return response()->json($exception);
